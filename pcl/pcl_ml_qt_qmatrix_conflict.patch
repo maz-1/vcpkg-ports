@@ -1,0 +1,73 @@
+diff -Naur a/ml/src/svm.cpp b/ml/src/svm.cpp
+--- a/ml/src/svm.cpp	2020-08-14 20:23:03.000000000 +0800
++++ b/ml/src/svm.cpp	2021-07-21 15:06:07.206061000 +0800
+@@ -293,19 +293,22 @@
+ // the member function get_Q is for getting one column from the Q Matrix
+ //
+ 
+-class QMatrix {
++namespace pcl
++{
++    class QMatrix {
+ 
+-public:
+-  virtual Qfloat*
+-  get_Q(int column, int len) const = 0;
+-  virtual double*
+-  get_QD() const = 0;
+-  virtual void
+-  swap_index(int i, int j) const = 0;
+-  virtual ~QMatrix() {}
+-};
++    public:
++      virtual Qfloat*
++      get_Q(int column, int len) const = 0;
++      virtual double*
++      get_QD() const = 0;
++      virtual void
++      swap_index(int i, int j) const = 0;
++      virtual ~QMatrix() {}
++    };
++}
+ 
+-class Kernel : public QMatrix {
++class Kernel : public pcl::QMatrix {
+ 
+ public:
+   Kernel(int l, svm_node* const* x, const svm_parameter& param);
+@@ -534,7 +537,7 @@
+ 
+   void
+   Solve(int l,
+-        const QMatrix& Q,
++        const pcl::QMatrix& Q,
+         const double* p_,
+         const schar* y_,
+         double* alpha_,
+@@ -551,7 +554,7 @@
+   enum { LOWER_BOUND, UPPER_BOUND, FREE };
+   char* alpha_status; // LOWER_BOUND, UPPER_BOUND, FREE
+   double* alpha;
+-  const QMatrix* Q;
++  const pcl::QMatrix* Q;
+   const double* QD;
+   double eps;
+   double Cp, Cn;
+@@ -668,7 +671,7 @@
+ 
+ void
+ Solver::Solve(int l,
+-              const QMatrix& Q,
++              const pcl::QMatrix& Q,
+               const double* p_,
+               const schar* y_,
+               double* alpha_,
+@@ -1177,7 +1180,7 @@
+ 
+   void
+   Solve(int l,
+-        const QMatrix& Q,
++        const pcl::QMatrix& Q,
+         const double* p,
+         const schar* y,
+         double* alpha,
