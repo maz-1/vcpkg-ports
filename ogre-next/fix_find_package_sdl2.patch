@@ -1,0 +1,12 @@
+diff -Naur 0_orig/CMake/Dependencies.cmake 2_sdl/CMake/Dependencies.cmake
+--- 0_orig/CMake/Dependencies.cmake	2021-08-16 07:02:59.000000000 +0800
++++ 2_sdl/CMake/Dependencies.cmake	2021-08-18 14:37:44.281673200 +0800
+@@ -270,7 +270,7 @@
+ #######################################################################
+ 
+ # Find sdl2
+-find_package(SDL2)
++find_package(SDL2 CONFIG)
+ macro_log_feature(SDL2_FOUND "SDL2" "Simple DirectMedia Library" "https://www.libsdl.org/" FALSE "" "")
+ 
+ #######################################################################
