@@ -27,6 +27,8 @@ vcpkg_from_github(
         cmake_change_path.patch
         toolchain_fixes.patch
         vulkan_fix.patch
+        #force_dump_shader.patch
+        hlms_unlit_changable_const_buffer_size.patch
 )
 
 file(REMOVE "${SOURCE_PATH}/CMake/Packages/FindOpenEXR.cmake")
