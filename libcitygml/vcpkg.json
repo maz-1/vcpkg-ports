@@ -1,0 +1,11 @@
+{
+  "name": "libcitygml",
+  "version-semver": "2.4.0",
+  "description": "C++ Library for CityGML Parsing and Visualization",
+  "homepage": "https://github.com/jklimke/libcitygml",
+  "dependencies": [
+    "gdal",
+    "osg",
+    "xerces-c"
+  ]
+}
