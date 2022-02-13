@@ -6,6 +6,7 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
         0001_fix_vs2019.patch
+        0002_remove_glu_dep.patch
 )
 
 #LIBCITYGML_OSG_PLUGIN_INSTALL_DIR
