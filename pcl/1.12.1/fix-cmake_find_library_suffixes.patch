@@ -1,0 +1,12 @@
+diff -Naur a/cmake/pcl_options.cmake b/cmake/pcl_options.cmake
+--- a/cmake/pcl_options.cmake	2021-12-21 19:48:06.000000000 +0800
++++ b/cmake/pcl_options.cmake	2022-02-26 17:22:05.016457800 +0800
+@@ -17,7 +17,7 @@
+   set(PCL_LIB_SUFFIX ${CMAKE_SHARED_LIBRARY_SUFFIX})
+   set(PCL_LIB_TYPE "SHARED")
+   if(NOT PCL_ALLOW_BOTH_SHARED_AND_STATIC_DEPENDENCIES)
+-    if(WIN32)
++    if(0)
+       set(CMAKE_FIND_LIBRARY_SUFFIXES ${CMAKE_IMPORT_LIBRARY_SUFFIX})
+     endif()
+   endif()

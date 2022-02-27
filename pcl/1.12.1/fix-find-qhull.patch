@@ -1,0 +1,44 @@
+diff -Naur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2021-12-21 19:48:06.000000000 +0800
++++ b/CMakeLists.txt	2022-02-26 17:18:12.744479000 +0800
+@@ -351,10 +351,11 @@
+ # Qhull
+ option(WITH_QHULL "Include convex-hull operations" TRUE)
+ if(WITH_QHULL)
+-  find_package(Qhull)
++  find_package(Qhull CONFIG REQUIRED)
+   if(NOT (${QHULL_LIBRARY_TYPE} MATCHES ${PCL_QHULL_REQUIRED_TYPE}) AND NOT (${PCL_QHULL_REQUIRED_TYPE} MATCHES "DONTCARE"))
+     message(FATAL_ERROR "Qhull was selected with ${PCL_QHULL_REQUIRED_TYPE} but found as ${QHULL_LIBRARY_TYPE}")
+   endif()
++  set(HAVE_QHULL ON)
+ endif()
+ 
+ # Cuda
+diff -Naur a/surface/CMakeLists.txt b/surface/CMakeLists.txt
+--- a/surface/CMakeLists.txt	2021-12-21 19:48:06.000000000 +0800
++++ b/surface/CMakeLists.txt	2022-02-26 17:19:02.318116000 +0800
+@@ -12,7 +12,7 @@
+   return()
+ endif()
+ 
+-if(QHULL_FOUND)
++if(Qhull_FOUND)
+   set(HULL_INCLUDES
+     "include/pcl/${SUBSYS_NAME}/concave_hull.h"
+     "include/pcl/${SUBSYS_NAME}/convex_hull.h"
+@@ -192,8 +192,13 @@
+   endif()
+ endif()
+ 
+-if(QHULL_FOUND)
+-  target_link_libraries("${LIB_NAME}" QHULL::QHULL)
++if(Qhull_FOUND)
++  if(QHULL_USE_STATIC)
++    set(QHULL_LIBRARIES Qhull::qhullcpp Qhull::qhullstatic Qhull::qhullstatic_r)
++  else()
++    set(QHULL_LIBRARIES Qhull::qhull_r Qhull::qhullcpp)
++  endif()
++  target_link_libraries("${LIB_NAME}" ${QHULL_LIBRARIES})
+ endif()
+ 
+ PCL_MAKE_PKGCONFIG(${LIB_NAME} COMPONENT ${SUBSYS_NAME} DESC ${SUBSYS_DESC} PCL_DEPS ${SUBSYS_DEPS})

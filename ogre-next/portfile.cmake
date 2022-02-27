@@ -20,15 +20,15 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO OGRECave/ogre-next
-    REF f5ff301701de70d9efc458899aeb17a870eb71e4
-    SHA512 36bdae220042931c8d82b3e2e15939baa575a32025d2d4a71e8cc64416d49a96cd50c07027cbc4fb5add6312db4700785fb26e5a27142c9c4edfe14f48966b2f
+    REF ec91c9039a7139726e89bb4aee73ab2e5027cbd6
+    SHA512 1fbc27e25663a3329735ee4fc8c734c2752e11cb9fc913d82f5fb8bf3522b1eb22062860224cc42aae88e57b7f22b721bbafe9c9da1a43d29a3a97571a89d72c
     HEAD_REF master
     PATCHES
         cmake_change_path.patch
         toolchain_fixes.patch
         vulkan_fix.patch
-        #force_dump_shader.patch
         hlms_unlit_changable_const_buffer_size.patch
+        force_dump_shader.patch
 )
 
 file(REMOVE "${SOURCE_PATH}/CMake/Packages/FindOpenEXR.cmake")

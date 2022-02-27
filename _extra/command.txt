@@ -1,0 +1,45 @@
+#vcpkg install qtcsv 
+
+vcpkg install cudnn
+vcpkg install vulkan
+vcpkg install vulkan-headers
+
+
+vcpkg install libe57
+vcpkg install qt5
+vcpkg install vtk[qt,atlmfc,vtkm,paraview,mpi,opengl,gdal,geojson]
+
+vcpkg install pcl[qt,opengl,cuda,tools,vtk,openni2] 
+
+vcpkg install opencv[openmp,qt] 
+vcpkg install cgal[qt]
+vcpkg install openmesh
+vcpkg install geographiclib
+#vcpkg install pdal[draco,e57,hdf,i3s,laszip,liblzma,pgpointcloud,supported-plugins,zstd]
+
+vcpkg install osg
+
+vcpkg install opencascade[freeimage,rapidjson,tbb]
+vcpkg install assimp
+
+
+#vcpkg install libigl[xml,glfw,opengl,imgui]
+
+vcpkg install libcitygml
+vcpkg install ogre-next
+
+vcpkg install wxwidgets
+
+
+# cloudcompare https://aur.archlinux.org/packages/cloudcompare/
+vcpkg install yasm-tool:x86-windows
+vcpkg install ffmpeg[nonfree,gpl,fdk-aac,mp3lame,nvcodec,opencl,opus,soxr,speex,theora,vorbis,vpx,x264,x265,zlib]
+#vcpkg install glew
+#vcpkg install mpir
+#vcpkg install pdal
+vcpkg install gdal
+vcpkg install shapelib
+vcpkg install tbb
+vcpkg install vxl[core-imaging]
+vcpkg install libharu
+#vcpkg install proj4

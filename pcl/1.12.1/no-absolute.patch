@@ -1,0 +1,20 @@
+diff -Naur a/PCLConfig.cmake.in b/PCLConfig.cmake.in
+--- a/PCLConfig.cmake.in	2022-02-26 17:27:02.594499500 +0800
++++ b/PCLConfig.cmake.in	2022-02-26 17:28:04.912588700 +0800
+@@ -224,7 +224,7 @@
+   if(PCL_ALL_IN_ONE_INSTALLER)
+     set(FLANN_ROOT "${PCL_ROOT}/3rdParty/Flann")
+   elseif(NOT FLANN_ROOT)
+-    set(FLANN_ROOT "@FLANN_ROOT@")
++    set(FLANN_ROOT "${VCPKG_IMPORT_PREFIX}")
+   endif()
+ 
+   set(PCL_FLANN_REQUIRED_TYPE @PCL_FLANN_REQUIRED_TYPE@)
+@@ -403,7 +403,6 @@
+   # pcl_message("PCL found into a build tree.")
+   set(PCL_CONF_INCLUDE_DIR "${PCL_DIR}/include") # for pcl_config.h
+   set(PCL_LIBRARY_DIRS "${PCL_DIR}/@LIB_INSTALL_DIR@")
+-  set(PCL_SOURCES_TREE "@CMAKE_SOURCE_DIR@")
+ else()
+   pcl_report_not_found("PCL can not be found on this machine")
+ endif()
