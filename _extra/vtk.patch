@@ -1,0 +1,18 @@
+diff --color -Naur a/ports/vtk/portfile.cmake b/ports/vtk/portfile.cmake
+--- a/ports/vtk/portfile.cmake	2022-02-27 21:59:40.013914800 +0800
++++ b/ports/vtk/portfile.cmake	2022-02-26 12:25:41.261607500 +0800
+@@ -85,6 +85,14 @@
+ list(TRANSFORM VTK_FEATURE_OPTIONS REPLACE "=ON" "=YES")
+ list(TRANSFORM VTK_FEATURE_OPTIONS REPLACE "=OFF" "=DONT_WANT")
+ 
++if("qt" IN_LIST FEATURES)
++    list(APPEND ADDITIONAL_OPTIONS
++        -DVTK_LEGACY_SILENT=ON
++        -DVTK_QT_VERSION=5
++        -DVTK_BUILD_QT_DESIGNER_PLUGIN=ON
++    )
++endif()
++
+ if("python" IN_LIST FEATURES)
+     vcpkg_find_acquire_program(PYTHON3)
+     list(APPEND ADDITIONAL_OPTIONS
