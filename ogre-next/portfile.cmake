@@ -20,14 +20,13 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO OGRECave/ogre-next
-    REF ec91c9039a7139726e89bb4aee73ab2e5027cbd6
-    SHA512 1fbc27e25663a3329735ee4fc8c734c2752e11cb9fc913d82f5fb8bf3522b1eb22062860224cc42aae88e57b7f22b721bbafe9c9da1a43d29a3a97571a89d72c
+    REF 309a195c386a9004f7765eec41a8d7396e6121d0
+    SHA512 e43f6b38e5192edbd63a518f66f8bd956755fd6a8122a3ebf94b80e4b39b2fd2583a502cf09f45f692c31d4345308ba94c7a92f27ae7d8166c280f90faf77b0e
     HEAD_REF master
     PATCHES
         cmake_change_path.patch
         toolchain_fixes.patch
         vulkan_fix.patch
-        hlms_unlit_changable_const_buffer_size.patch
         force_dump_shader.patch
 )
 

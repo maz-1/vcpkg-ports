@@ -5,11 +5,11 @@ diff --color -Naur a/OgreMain/src/OgreHlms.cpp b/OgreMain/src/OgreHlms.cpp
          mShaderProfile( "unset!" ),
          mShaderSyntax( "unset!" ),
          mShaderFileExt( "unset!" ),
--    #if OGRE_DEBUG_MODE >= OGRE_DEBUG_MEDIUM
+-#if OGRE_DEBUG_MODE >= OGRE_DEBUG_MEDIUM
          mDebugOutput( true ),
--    #else
+-#else
 -        mDebugOutput( false ),
--    #endif
-     #if OGRE_DEBUG_MODE >= OGRE_DEBUG_HIGH
+-#endif
+ #if OGRE_DEBUG_MODE >= OGRE_DEBUG_HIGH
          mDebugOutputProperties( true ),
-     #else
+ #else
