@@ -1,0 +1,324 @@
+diff -Naur a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake
+--- a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:23:40.487606300 +0800
++++ b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:21:59.096340600 +0800
+@@ -53,14 +53,14 @@
+ add_library(OpenMeshCore SHARED IMPORTED)
+ 
+ set_target_properties(OpenMeshCore PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+ )
+ 
+ # Create imported target OpenMeshTools
+ add_library(OpenMeshTools SHARED IMPORTED)
+ 
+ set_target_properties(OpenMeshTools PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+   INTERFACE_LINK_LIBRARIES "OpenMeshCore"
+ )
+ 
+diff -Naur a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake
+--- a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:23:40.483605200 +0800
++++ b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:21:16.320680300 +0800
+@@ -8,22 +8,22 @@
+ # Import target "OpenMeshCore" for configuration "Debug"
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshCore PROPERTIES
+-  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/./OpenMeshCored.dll"
++  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/bin/OpenMeshCored.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib" "${_IMPORT_PREFIX}/./OpenMeshCored.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib" "${_IMPORT_PREFIX}/../debug/bin/OpenMeshCored.dll" )
+ 
+ # Import target "OpenMeshTools" for configuration "Debug"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshTools PROPERTIES
+-  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/./OpenMeshToolsd.dll"
++  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/bin/OpenMeshToolsd.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib" "${_IMPORT_PREFIX}/./OpenMeshToolsd.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib" "${_IMPORT_PREFIX}/../debug/bin/OpenMeshToolsd.dll" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake
+--- a/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:23:40.484605500 +0800
++++ b/installed/x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:17:53.374916600 +0800
+@@ -8,22 +8,22 @@
+ # Import target "OpenMeshCore" for configuration "Release"
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshCore PROPERTIES
+-  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/./OpenMeshCore.dll"
++  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../bin/OpenMeshCore.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib" "${_IMPORT_PREFIX}/./OpenMeshCore.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib" "${_IMPORT_PREFIX}/../bin/OpenMeshCore.dll" )
+ 
+ # Import target "OpenMeshTools" for configuration "Release"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshTools PROPERTIES
+-  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/./OpenMeshTools.dll"
++  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../bin/OpenMeshTools.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib" "${_IMPORT_PREFIX}/./OpenMeshTools.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib" "${_IMPORT_PREFIX}/../bin/OpenMeshTools.dll" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake
+--- a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-27 20:14:50.063945100 +0800
++++ b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:25:55.480034300 +0800
+@@ -53,14 +53,14 @@
+ add_library(OpenMeshCore STATIC IMPORTED)
+ 
+ set_target_properties(OpenMeshCore PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+ )
+ 
+ # Create imported target OpenMeshTools
+ add_library(OpenMeshTools STATIC IMPORTED)
+ 
+ set_target_properties(OpenMeshTools PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+   INTERFACE_LINK_LIBRARIES "OpenMeshCore"
+ )
+ 
+diff -Naur a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake
+--- a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-27 20:14:50.062944500 +0800
++++ b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:26:26.296567700 +0800
+@@ -9,21 +9,21 @@
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshCore PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib" )
+ 
+ # Import target "OpenMeshTools" for configuration "Debug"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshTools PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "C;CXX"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake
+--- a/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-27 20:14:50.062944500 +0800
++++ b/installed/x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:26:42.058101000 +0800
+@@ -9,21 +9,21 @@
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshCore PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib" )
+ 
+ # Import target "OpenMeshTools" for configuration "Release"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshTools PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C;CXX"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake
+--- a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:23:40.487606300 +0800
++++ b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:21:59.096340600 +0800
+@@ -53,14 +53,14 @@
+ add_library(OpenMeshCore SHARED IMPORTED)
+ 
+ set_target_properties(OpenMeshCore PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+ )
+ 
+ # Create imported target OpenMeshTools
+ add_library(OpenMeshTools SHARED IMPORTED)
+ 
+ set_target_properties(OpenMeshTools PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+   INTERFACE_LINK_LIBRARIES "OpenMeshCore"
+ )
+ 
+diff -Naur a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake
+--- a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:23:40.483605200 +0800
++++ b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:21:16.320680300 +0800
+@@ -8,22 +8,22 @@
+ # Import target "OpenMeshCore" for configuration "Debug"
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshCore PROPERTIES
+-  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/./OpenMeshCored.dll"
++  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/bin/OpenMeshCored.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib" "${_IMPORT_PREFIX}/./OpenMeshCored.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib" "${_IMPORT_PREFIX}/../debug/bin/OpenMeshCored.dll" )
+ 
+ # Import target "OpenMeshTools" for configuration "Debug"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshTools PROPERTIES
+-  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/./OpenMeshToolsd.dll"
++  IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/bin/OpenMeshToolsd.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib" "${_IMPORT_PREFIX}/./OpenMeshToolsd.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib" "${_IMPORT_PREFIX}/../debug/bin/OpenMeshToolsd.dll" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake
+--- a/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:23:40.484605500 +0800
++++ b/packages/openmesh_x64-windows/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:17:53.374916600 +0800
+@@ -8,22 +8,22 @@
+ # Import target "OpenMeshCore" for configuration "Release"
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshCore PROPERTIES
+-  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/./OpenMeshCore.dll"
++  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../bin/OpenMeshCore.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib" "${_IMPORT_PREFIX}/./OpenMeshCore.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib" "${_IMPORT_PREFIX}/../bin/OpenMeshCore.dll" )
+ 
+ # Import target "OpenMeshTools" for configuration "Release"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshTools PROPERTIES
+-  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/./OpenMeshTools.dll"
++  IMPORTED_IMPLIB_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../bin/OpenMeshTools.dll"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib" "${_IMPORT_PREFIX}/./OpenMeshTools.dll" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib" "${_IMPORT_PREFIX}/../bin/OpenMeshTools.dll" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake
+--- a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-27 20:14:50.063945100 +0800
++++ b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig.cmake	2022-02-28 21:25:55.480034300 +0800
+@@ -53,14 +53,14 @@
+ add_library(OpenMeshCore STATIC IMPORTED)
+ 
+ set_target_properties(OpenMeshCore PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+ )
+ 
+ # Create imported target OpenMeshTools
+ add_library(OpenMeshTools STATIC IMPORTED)
+ 
+ set_target_properties(OpenMeshTools PROPERTIES
+-  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
++  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/../include"
+   INTERFACE_LINK_LIBRARIES "OpenMeshCore"
+ )
+ 
+diff -Naur a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake
+--- a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-27 20:14:50.062944500 +0800
++++ b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-debug.cmake	2022-02-28 21:26:26.296567700 +0800
+@@ -9,21 +9,21 @@
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshCore PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/debug/lib/OpenMeshCored.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../debug/lib/OpenMeshCored.lib" )
+ 
+ # Import target "OpenMeshTools" for configuration "Debug"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+ set_target_properties(OpenMeshTools PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "C;CXX"
+-  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib"
++  IMPORTED_LOCATION_DEBUG "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/debug/lib/OpenMeshToolsd.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../debug/lib/OpenMeshToolsd.lib" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
+diff -Naur a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake
+--- a/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-27 20:14:50.062944500 +0800
++++ b/packages/openmesh_x64-windows-static/share/OpenMesh/cmake/OpenMeshConfig-release.cmake	2022-02-28 21:26:42.058101000 +0800
+@@ -9,21 +9,21 @@
+ set_property(TARGET OpenMeshCore APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshCore PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "CXX"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshCore )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/lib/OpenMeshCore.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshCore "${_IMPORT_PREFIX}/../lib/OpenMeshCore.lib" )
+ 
+ # Import target "OpenMeshTools" for configuration "Release"
+ set_property(TARGET OpenMeshTools APPEND PROPERTY IMPORTED_CONFIGURATIONS RELEASE)
+ set_target_properties(OpenMeshTools PROPERTIES
+   IMPORTED_LINK_INTERFACE_LANGUAGES_RELEASE "C;CXX"
+-  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib"
++  IMPORTED_LOCATION_RELEASE "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib"
+   )
+ 
+ list(APPEND _IMPORT_CHECK_TARGETS OpenMeshTools )
+-list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/lib/OpenMeshTools.lib" )
++list(APPEND _IMPORT_CHECK_FILES_FOR_OpenMeshTools "${_IMPORT_PREFIX}/../lib/OpenMeshTools.lib" )
+ 
+ # Commands beyond this point should not need to know the version.
+ set(CMAKE_IMPORT_FILE_VERSION)
