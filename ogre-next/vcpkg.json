@@ -1,7 +1,7 @@
 {
   "name": "ogre-next",
-  "version-string": "2022-02-28",
-  "port-version": 2,
+  "version-string": "2022-03-02",
+  "port-version": 0,
   "description": "Ogre 2.3 - scene-oriented, flexible 3D engine written in C++",
   "homepage": "https://github.com/OGRECave/ogre-next",
   "dependencies": [

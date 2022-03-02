@@ -20,8 +20,8 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO OGRECave/ogre-next
-    REF 309a195c386a9004f7765eec41a8d7396e6121d0
-    SHA512 e43f6b38e5192edbd63a518f66f8bd956755fd6a8122a3ebf94b80e4b39b2fd2583a502cf09f45f692c31d4345308ba94c7a92f27ae7d8166c280f90faf77b0e
+    REF f2d1a31887a87c492b4225e063325c48693fec19
+    SHA512 a85bee9c61a6aadf799102d78bf88b86c6b63fb9bf3dd2f244fd7d7b9a81d70bcc2d252d82d87998ea8471b381768c3ba967683f1ee74074fd5d2b04d9709dfc
     HEAD_REF master
     PATCHES
         cmake_change_path.patch
@@ -132,3 +132,5 @@ endif()
 file(INSTALL ${SOURCE_PATH}/COPYING DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
 
 vcpkg_copy_pdbs()
+
+file(COPY ${SOURCE_PATH}/Samples/Media DESTINATION ${CURRENT_PACKAGES_DIR}/share/ogre-next/)
