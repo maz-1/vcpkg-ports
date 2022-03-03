@@ -27,7 +27,7 @@ vcpkg_from_github(
         cmake_change_path.patch
         toolchain_fixes.patch
         vulkan_fix.patch
-        force_dump_shader.patch
+        #force_dump_shader.patch
 )
 
 file(REMOVE "${SOURCE_PATH}/CMake/Packages/FindOpenEXR.cmake")
@@ -134,3 +134,5 @@ file(INSTALL ${SOURCE_PATH}/COPYING DESTINATION ${CURRENT_PACKAGES_DIR}/share/${
 vcpkg_copy_pdbs()
 
 file(COPY ${SOURCE_PATH}/Samples/Media DESTINATION ${CURRENT_PACKAGES_DIR}/share/ogre-next/)
+file(REMOVE ${CURRENT_PACKAGES_DIR}/share/ogre-next/CMakeLists.txt)
+
