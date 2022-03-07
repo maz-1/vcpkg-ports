@@ -7,71 +7,90 @@ vcpkg_from_github(
     PATCHES
         0001_fix_vs2019.patch
         0002_remove_glu_dep.patch
+        0003_fix_tools.patch
 )
 
-if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
+if ("osg" IN_LIST FEATURES)
+    SET(VCPKG_POLICY_DLLS_WITHOUT_EXPORTS enabled)
     list(APPEND ADDITIONAL_OPTIONS
         -DLIBCITYGML_OSGPLUGIN=ON
-        -DLIBCITYGML_DYNAMIC=ON
     )
 else()
     list(APPEND ADDITIONAL_OPTIONS
         -DLIBCITYGML_OSGPLUGIN=OFF
+    )
+endif()
+
+if ("gdal" IN_LIST FEATURES)
+    list(APPEND ADDITIONAL_OPTIONS
+        -DLIBCITYGML_USE_GDAL=ON
+    )
+else()
+    list(APPEND ADDITIONAL_OPTIONS
+        -DLIBCITYGML_USE_GDAL=OFF
+    )
+endif()
+
+if ("tools" IN_LIST FEATURES)
+    list(APPEND ADDITIONAL_OPTIONS
+        -DLIBCITYGML_TESTS=ON
+    )
+else()
+    list(APPEND ADDITIONAL_OPTIONS
+        -DLIBCITYGML_TESTS=OFF
+    )
+endif()
+
+if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
+    list(APPEND ADDITIONAL_OPTIONS
+        -DLIBCITYGML_DYNAMIC=ON
+    )
+else()
+    list(APPEND ADDITIONAL_OPTIONS
         -DLIBCITYGML_DYNAMIC=OFF
     )
 endif()
 
-if(LIBCITYGML_STATIC_CRT STREQUAL "static")
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_STATIC_CRT=ON
-    )
-else()
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_STATIC_CRT=OFF
-    )
+if (VCPKG_TARGET_IS_UWP OR VCPKG_TARGET_IS_WINDOWS)
+    if(VCPKG_CRT_LINKAGE STREQUAL "static")
+        list(APPEND ADDITIONAL_OPTIONS
+            -DLIBCITYGML_STATIC_CRT=ON
+        )
+    else()
+        list(APPEND ADDITIONAL_OPTIONS
+            -DLIBCITYGML_STATIC_CRT=OFF
+        )
+    endif()
 endif()
 
 vcpkg_configure_cmake(
     SOURCE_PATH ${SOURCE_PATH}
     PREFER_NINJA
     OPTIONS
-        -DLIBCITYGML_OSGPLUGIN=ON
-        -DLIBCITYGML_USE_GDAL=ON
         ${ADDITIONAL_OPTIONS}
 )
 
-file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/share/libcitygml)
-
 vcpkg_install_cmake()
-vcpkg_fixup_cmake_targets()
+vcpkg_fixup_pkgconfig()
+file(READ "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" PKGCONFIG_FILE)
+string(REGEX REPLACE "-lcitygml" "-lcitygmld" PKGCONFIG_FILE_MODIFIED "${PKGCONFIG_FILE}" )
+file(WRITE "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" ${PKGCONFIG_FILE_MODIFIED})
 vcpkg_copy_pdbs()
 
-file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
-
-if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/tools)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/lib ${CURRENT_PACKAGES_DIR}/tools/osg)
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/lib)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/tools/osg/pkgconfig ${CURRENT_PACKAGES_DIR}/lib/pkgconfig)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/tools/osg/citygml.lib ${CURRENT_PACKAGES_DIR}/lib/citygml.lib)
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/tools/libcitygml)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/bin/citygmlOsgViewer.exe ${CURRENT_PACKAGES_DIR}/tools/libcitygml/citygmlOsgViewer.exe)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/bin/citygmltest.exe ${CURRENT_PACKAGES_DIR}/tools/libcitygml/citygmltest.exe)
-else()
-    
+if ("tools" IN_LIST FEATURES)
+    vcpkg_copy_tools(
+        TOOL_NAMES citygmltest
+        AUTO_CLEAN
+    )
+    if ("osg" IN_LIST FEATURES)
+        vcpkg_copy_tools(
+            TOOL_NAMES citygmlOsgViewer
+            AUTO_CLEAN
+        )
+    endif()
 endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 
-if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/tools)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/debug/lib ${CURRENT_PACKAGES_DIR}/debug/tools/osg)
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/lib)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/debug/tools/osg/pkgconfig ${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/debug/tools/osg/citygmld.lib ${CURRENT_PACKAGES_DIR}/debug/lib/citygmld.lib)
-    file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/tools/libcitygml)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/debug/bin/citygmlOsgViewer.exe ${CURRENT_PACKAGES_DIR}/debug/tools/libcitygml/citygmlOsgViewer.exe)
-    file(RENAME ${CURRENT_PACKAGES_DIR}/debug/bin/citygmltest.exe ${CURRENT_PACKAGES_DIR}/debug/tools/libcitygml/citygmltest.exe)
-else()
-    
-endif()
+file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
+

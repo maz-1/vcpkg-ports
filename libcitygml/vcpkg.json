@@ -5,11 +5,23 @@
   "homepage": "https://github.com/jklimke/libcitygml",
   "supports": "windows",
   "dependencies": [
-    "gdal",
-    "xerces-c",
-    {
-      "name": "osg",
-      "platform": "!static"
+    "xerces-c"
+  ],
+  "features": {
+    "gdal": {
+      "description": "Enable coordinate transformations support",
+      "dependencies": [
+        "gdal"
+      ]
+    },
+    "osg": {
+      "description": "OpenSceneGraph plugin",
+      "dependencies": [
+        "osg"
+      ]
+    },
+    "tools": {
+      "description": "tools for testing"
     }
-  ]
+  }
 }
