@@ -1,5 +1,0 @@
-Source: qtcsv
-Version: 1.5
-Homepage: https://github.com/iamantony/qtcsv
-Description: Small easy-to-use library for reading and writing csv-files in Qt.
-Build-Depends: qt5

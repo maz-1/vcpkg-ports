@@ -1,11 +1,14 @@
 include(vcpkg_common_functions)
-set(SOURCE_PATH ${CURRENT_BUILDTREES_DIR}/src/qtcsv-1.5)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO iamantony/qtcsv
-    REF v1.5
-    SHA512 c8fac9b4fbcfa30fbae844fb4afd39d7672fbdb567f0db3982a4e4d673271c202645e0cffa9126dd50cbdf3ed9b65512cb3400fbc12e5ea839fb66e5f3e6b5bb
+    REF v1.6
+    #SHA512 02b656eea93bbd5e1db665816593d4c0240977c6624defef46270b9aa33df9969f8fea0f7aa7a99d0f71fd1b500f2cd72932156dc054a814422290cd60ccf4f0
+    SHA512 4f4b324b27bb58f0ec5fd57be7b240a6c114c170aa97c14cdd807810a684a6491b77d8c93f925626e1eb41ca48c58207f1ad58730dbb3368593dc4e5f1df6dac
     HEAD_REF master
+    PATCHES
+        #fix_qt5.patch
+        fix_cmake_install_path.patch
 )
 
 vcpkg_configure_cmake(
@@ -14,6 +17,7 @@ vcpkg_configure_cmake(
     OPTIONS
         #-DBOOST_UUID_FORCE_AUTO_LINK=ON
         #-DXERCES_ROOT=${CURRENT_INSTALLED_DIR}
+        -DSTATIC_LIB=ON
 )
 
 
