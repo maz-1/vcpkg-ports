@@ -8,6 +8,7 @@ vcpkg_from_github(
         0001_fix_vs2019.patch
         0002_remove_glu_dep.patch
         0003_fix_tools.patch
+        0004_fix_pkgbuild.patch
 )
 
 if ("osg" IN_LIST FEATURES)
@@ -72,9 +73,9 @@ vcpkg_configure_cmake(
 
 vcpkg_install_cmake()
 vcpkg_fixup_pkgconfig()
-file(READ "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" PKGCONFIG_FILE)
-string(REGEX REPLACE "-lcitygml" "-lcitygmld" PKGCONFIG_FILE_MODIFIED "${PKGCONFIG_FILE}" )
-file(WRITE "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" ${PKGCONFIG_FILE_MODIFIED})
+#file(READ "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" PKGCONFIG_FILE)
+#string(REGEX REPLACE "-lcitygml" "-lcitygmld" PKGCONFIG_FILE_MODIFIED "${PKGCONFIG_FILE}" )
+#file(WRITE "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" ${PKGCONFIG_FILE_MODIFIED})
 vcpkg_copy_pdbs()
 
 if ("tools" IN_LIST FEATURES)
