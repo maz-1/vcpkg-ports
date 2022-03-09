@@ -22,8 +22,8 @@ find_program(NEKO_COMMAND neko
                    /usr/bin
                    /usr/local/bin
              REQUIRED)
-get_filename_component(HAXE_PATH ${HAXE_COMMAND} DIRECTORY)
-get_filename_component(NEKO_PATH ${NEKO_COMMAND} DIRECTORY)
+get_filename_component(HAXE_CMD_DIR ${HAXE_COMMAND} DIRECTORY)
+get_filename_component(NEKO_CMD_DIR ${NEKO_COMMAND} DIRECTORY)
 
 set(HAXE_BUILDFILE_CONTENT "-lib promhx \n\
 -main verb.Verb \n\
@@ -71,24 +71,31 @@ if (VCPKG_TARGET_IS_UWP OR VCPKG_TARGET_IS_WINDOWS)
 -cpp ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg")
 endif()
 
-set(ENV{PATH} "${HAXE_PATH}${PATH_SEP}${NEKO_PATH}${PATH_SEP}$ENV{PATH}")
-set(ENV{HAXEPATH} "${HAXE_PATH}")
-set(ENV{NEKO_INSTPATH} "${NEKO_PATH}")
+set(ENV{PATH} "${HAXE_CMD_DIR}${PATH_SEP}${NEKO_CMD_DIR}${PATH_SEP}$ENV{PATH}")
+set(ENV{HAXEPATH} "${SOURCE_PATH}/deps")
+#set(ENV{NEKO_INSTPATH} "${NEKO_CMD_DIR}")
 execute_process(COMMAND haxelib install hxcpp
                 WORKING_DIRECTORY "${SOURCE_PATH}")
 execute_process(COMMAND haxelib install promhx
                 WORKING_DIRECTORY "${SOURCE_PATH}")
-get_filename_component(HXCPP_VERSION_FILE $ENV{HAXEPATH}/lib/hxcpp/.current ABSOLUTE)
-if(NOT EXISTS "${HXCPP_VERSION_FILE}")
-    message( FATAL_ERROR "Cannot find hxcpp" )
-endif()
-file(READ "${HXCPP_VERSION_FILE}" HXCPP_VERSION)
-string(REGEX MATCH "^[0-9.]*" HXCPP_VERSION ${HXCPP_VERSION})
-string(REPLACE "." "," HXCPP_VERSION_COMMA ${HXCPP_VERSION})
-set(HXCPP_INCLUDE_DIR $ENV{HAXEPATH}/lib/hxcpp/${HXCPP_VERSION_COMMA}/include)
-if(NOT EXISTS "${HXCPP_INCLUDE_DIR}")
-    message( FATAL_ERROR "Cannot find hxcpp" )
-endif()
+
+foreach(HAXE_PKG hxcpp promhx)
+    get_filename_component(PKG_VERSION_FILE $ENV{HAXEPATH}/lib/${HAXE_PKG}/.current ABSOLUTE)
+    if(NOT EXISTS "${PKG_VERSION_FILE}")
+        message( FATAL_ERROR "Cannot find ${HAXE_PKG}." )
+    endif()
+    file(READ "${PKG_VERSION_FILE}" PKG_VERSION)
+    string(REGEX MATCH "^[0-9.]*" PKG_VERSION ${PKG_VERSION})
+    string(REPLACE "." "," PKG_VERSION_COMMA ${PKG_VERSION})
+    if (HAXE_PKG STREQUAL "hxcpp")
+        set(HXCPP_INCLUDE_DIR $ENV{HAXEPATH}/lib/${HAXE_PKG}/${PKG_VERSION_COMMA}/include)
+        if(NOT EXISTS "${HXCPP_INCLUDE_DIR}")
+            message( FATAL_ERROR "Cannot find header files for ${HAXE_PKG}." )
+        endif()
+    endif()
+endforeach()
+                
+
 
 file(MAKE_DIRECTORY ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg)
 file(WRITE "${SOURCE_PATH}/build_cpp_dbg.hxml" ${HAXE_BUILDFILE_CONTENT_DEBUG})
