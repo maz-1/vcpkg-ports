@@ -1,0 +1,28 @@
+diff -Naur a/sources/citygml.pc.cmake b/sources/citygml.pc.cmake
+--- a/sources/citygml.pc.cmake	2022-03-13 12:38:27.000000000 +0800
++++ b/sources/citygml.pc.cmake	2022-03-13 13:17:17.667640200 +0800
+@@ -5,7 +5,7 @@
+ 
+ Name: citygml
+ Description: Read and Write CityGML files
+-Requires: libxml-2.0 glu
++Requires: ${PKG_CONFIG_REQUIRES}
+ Version: ${META_VERSION}
+ Libs: -L${LIB_INSTALL_DIR} -lcitygml${LIBCITYGML_POSTFIX}
+ Cflags: -I${INCLUDE_INSTALL_DIR}
+diff -Naur a/sources/CMakeLists.txt b/sources/CMakeLists.txt
+--- a/sources/CMakeLists.txt	2022-03-13 12:38:27.000000000 +0800
++++ b/sources/CMakeLists.txt	2022-03-13 13:19:02.959630300 +0800
+@@ -284,6 +284,12 @@
+     set(LIBCITYGML_POSTFIX "")
+ endif()
+ 
++set(PKG_CONFIG_REQUIRES "xerces-c glu")
++
++if (GDAL_LIBRARY)
++    set(PKG_CONFIG_REQUIRES "${PKG_CONFIG_REQUIRES} gdal")
++endif()
++
+ configure_file(citygml.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/citygml.pc)
+ 
+ INSTALL(

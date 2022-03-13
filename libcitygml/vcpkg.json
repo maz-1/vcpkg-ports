@@ -1,6 +1,6 @@
 {
   "name": "libcitygml",
-  "version-semver": "2.4.0",
+  "version-semver": "2.4.1",
   "description": "C++ Library for CityGML Parsing and Visualization",
   "homepage": "https://github.com/jklimke/libcitygml",
   "supports": "windows",
@@ -15,13 +15,13 @@
       ]
     },
     "osg": {
-      "description": "OpenSceneGraph plugin",
+      "description": "Enable OpenSceneGraph plugin",
       "dependencies": [
         "osg"
       ]
     },
     "tools": {
-      "description": "tools for testing"
+      "description": "Enable tools and tests"
     }
   }
 }

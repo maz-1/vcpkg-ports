@@ -1,45 +1,23 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO jklimke/libcitygml
-    REF 081993794cdd3264af396a79358100302fef5a83 # 2.4.0
-    SHA512 5daf66d418726a31df3f62330515590e7ebc3d6d833742b1f806ae8e52f6ade04ce6f4c2425356a03b748deec319a8b44340afbb7f6d788507bd91504ef277ac
+    REPO maz-1/libcitygml
+    REF d0b5fda4a292018ad6c2e492e6ac385fc6795322 # 2.4.1
+    SHA512 c6958a2d0cdc8dab7fa735f6661b361dda539a6ee103b18b998fdd53347fb39f27d803b765f07d8a4929119616b563ef4e34b4dd5226a8df537be71a8860c4aa
     HEAD_REF master
     PATCHES
-        0001_fix_vs2019.patch
-        0002_remove_glu_dep.patch
-        0003_fix_tools.patch
-        0004_fix_pkgbuild.patch
+        0001_fix_tools.patch
+        0002_fix_pkgconfig.patch
+)
+
+vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+    FEATURES
+        osg         LIBCITYGML_OSGPLUGIN
+        gdal        LIBCITYGML_USE_GDAL
+        tools       LIBCITYGML_TESTS
 )
 
 if ("osg" IN_LIST FEATURES)
     SET(VCPKG_POLICY_DLLS_WITHOUT_EXPORTS enabled)
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_OSGPLUGIN=ON
-    )
-else()
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_OSGPLUGIN=OFF
-    )
-endif()
-
-if ("gdal" IN_LIST FEATURES)
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_USE_GDAL=ON
-    )
-else()
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_USE_GDAL=OFF
-    )
-endif()
-
-if ("tools" IN_LIST FEATURES)
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_TESTS=ON
-    )
-else()
-    list(APPEND ADDITIONAL_OPTIONS
-        -DLIBCITYGML_TESTS=OFF
-    )
 endif()
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "dynamic")
@@ -68,15 +46,19 @@ vcpkg_configure_cmake(
     SOURCE_PATH ${SOURCE_PATH}
     PREFER_NINJA
     OPTIONS
+        ${FEATURE_OPTIONS}
         ${ADDITIONAL_OPTIONS}
 )
 
 vcpkg_install_cmake()
-vcpkg_fixup_pkgconfig()
-#file(READ "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" PKGCONFIG_FILE)
-#string(REGEX REPLACE "-lcitygml" "-lcitygmld" PKGCONFIG_FILE_MODIFIED "${PKGCONFIG_FILE}" )
-#file(WRITE "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/citygml.pc" ${PKGCONFIG_FILE_MODIFIED})
+#vcpkg_fixup_pkgconfig()
 vcpkg_copy_pdbs()
+
+if(EXISTS ${CURRENT_PACKAGES_DIR}/cmake)
+    vcpkg_fixup_cmake_targets(CONFIG_PATH cmake TARGET_PATH share/citygml)
+else()
+    vcpkg_fixup_cmake_targets(CONFIG_PATH lib/cmake/citygml TARGET_PATH share/citygml)
+endif()
 
 if ("tools" IN_LIST FEATURES)
     vcpkg_copy_tools(
@@ -91,7 +73,10 @@ if ("tools" IN_LIST FEATURES)
     endif()
 endif()
 
-file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
 
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
+file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
 
