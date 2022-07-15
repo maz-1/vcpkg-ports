@@ -1,0 +1,46 @@
+diff --color -Naur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2021-11-18 05:02:47.000000000 +0800
++++ b/CMakeLists.txt	2022-07-15 16:51:55.154726100 +0800
+@@ -18,10 +18,9 @@
+ # Choose package components
+ set(WITH_TESTS TRUE CACHE BOOL "Choose if LAZPERF unit tests should be built")
+ 
++include(${LAZPERF_CMAKE_DIR}/install.cmake)
+ if (EMSCRIPTEN)
+     set(WITH_TESTS NO)
+-else()
+-    include(${LAZPERF_CMAKE_DIR}/install.cmake)
+ endif()
+ 
+ if(WITH_TESTS)
+diff --color -Naur a/cmake/install.cmake b/cmake/install.cmake
+--- a/cmake/install.cmake	2022-07-15 15:45:28.700285900 +0800
++++ b/cmake/install.cmake	2022-07-15 15:46:21.606370100 +0800
+@@ -27,7 +27,7 @@
+     NAMESPACE
+         LAZPERF::
+     DESTINATION
+-        lib/cmake/LAZPERF
++        share/lazperf
+ )
+ 
+ #
+@@ -39,5 +39,5 @@
+         ${CMAKE_CURRENT_BINARY_DIR}/lazperf-config.cmake
+         ${CMAKE_CURRENT_BINARY_DIR}/lazperf-config-version.cmake
+     DESTINATION
+-        lib/cmake/LAZPERF
++        share/lazperf
+ )
+diff --color -Naur a/cmake/functions.cmake b/cmake/functions.cmake
+--- a/cmake/functions.cmake	2021-11-18 05:02:47.000000000 +0800
++++ b/cmake/functions.cmake	2022-07-15 17:31:40.752613600 +0800
+@@ -1,7 +1,5 @@
+ function(lazperf_add_library _target _type)
+     add_library(${_target} ${_type} ${ARGN})
+     lazperf_library_compile_settings(${_target} ${_type})
+-    if (${_type} STREQUAL "SHARED")
+-        lazperf_install_library(${_target})
+-    endif()
++    lazperf_install_library(${_target})
+ endfunction()
