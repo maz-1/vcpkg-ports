@@ -3,7 +3,7 @@ set(VERSION 0.9.0)
 vcpkg_from_git(
     OUT_SOURCE_PATH SOURCE_PATH
     URL git@github.com:maz-1/VerbCpp.git
-    REF e759442812a8d2dfc470998951d694f350960723
+    REF d3654ee52a88ac726ee78cc2137acb6e92c075f9
     HEAD_REF master
 )
 
