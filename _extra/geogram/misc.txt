@@ -1,0 +1,13 @@
+#third_party: imgui
+vcpkg_from_github(
+    OUT_SOURCE_PATH IMGUI_SOURCE_PATH
+    REPO ocornut/imgui
+    REF ad44f5831acec714f2af437475406e2f002982a1
+    SHA512 55b96439fa5590e300f3ed5e60003d1c8424ccbd332d07477a9228e607f8ed288fce9cb465a37f88c4f904fbaf766d91ced6a744f756ab694d17a83117758e0a
+)
+
+
+...
+
+
+file(RENAME "${IMGUI_SOURCE_PATH}" "${SOURCE_PATH}/src/lib/geogram_gfx/third_party/imgui")
